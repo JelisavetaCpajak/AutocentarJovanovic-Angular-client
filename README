@@ -1,0 +1,1 @@
+To start client side of this application, run "npm start" and set your credentials for database(you can find sql script in this repository under name "autocentar.sql")
