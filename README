@@ -1,1 +1,1 @@
-To start client side of this application, run "npm start" and set your credentials for database(you can find sql script in this repository under name "autocentar.sql")
+Client side of this application is done using Angular and Ionic. To start client, run "npm start".
