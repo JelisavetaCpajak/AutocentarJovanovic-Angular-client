@@ -1,0 +1,19 @@
+* Za Capacitor otkomentarisati (splashscreen i to) u app.component.ts
+
+URADJENO:
+
+kreiranje zaposlenog
+prijavi zaposlenog - treba da se doda token logika  
+kreiranje vozila
+pretrazi vozilo
+pretrazivanje predmeta
+kreiranje predmeta
+izmena predmeta
+brisanje predmeta
+kreiranje kasko polise
+pretrazivanje kasko polise
+brisanje kasko polise
+izmena kasko polise
+
+
+

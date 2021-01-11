@@ -1,0 +1,72 @@
+<ion-app>
+  <ion-menu side="end" contentId="main">
+    <ion-header>
+      <ion-toolbar>
+        <ion-item lines="none">
+          <ion-icon
+            name="person-circle"
+            slot="start"
+            class="ion-no-margin"
+          ></ion-icon>
+          <ion-title *ngIf="prijavljeniZaposleni">
+            {{ prijavljeniZaposleni.ime + " " + prijavljeniZaposleni.prezime }}
+          </ion-title>
+          <ion-title *ngIf="!prijavljeniZaposleni"
+            >Prijavljeni zaposleni</ion-title
+          >
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item routerLink="/home">
+            <ion-icon slot="start" name="home-outline"></ion-icon>
+            <ion-label>Početna</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/kreiraj-vozilo">
+            <ion-icon slot="start" name="car-sport-outline"></ion-icon>
+            <ion-label>Kreiraj vozilo</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/pretrazi-vozilo">
+            <ion-icon slot="start" name="search-outline"></ion-icon>
+            <ion-label>Pretraži vozilo</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item (click)="onKreirajKlijenta()">
+            <ion-icon slot="start" name="car-sport-outline"></ion-icon>
+            <ion-label>Kreiraj klijenta</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item (click)="onPretraziKlijenta()">
+            <ion-icon slot="start" name="search-outline"></ion-icon>
+            <ion-label>Pretraži klijenta</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item routerLink="/kreiraj-zaposlenog">
+            <ion-icon slot="start" name="person-add-outline"></ion-icon>
+            <ion-label>Kreiraj zaposlenog</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-menu-toggle>
+          <ion-item routerLink="/login">
+            <ion-icon slot="start" name="exit-outline"></ion-icon>
+            <ion-label>Odjava</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
+</ion-app>

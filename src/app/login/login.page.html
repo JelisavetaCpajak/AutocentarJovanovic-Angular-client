@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Prijavljivanje</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="10" offset="1">
+       <ion-img src="../../assets/images/logo.png" class="logo"></ion-img>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+  <form #f="ngForm" (ngSubmit)="onPrijaviSe()">
+    <ion-grid>
+      <ion-row class="red">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Korisničko ime</ion-label>
+            <ion-input type="text" ngModel required name="korisnickoIme"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Šifra</ion-label>
+            <ion-input type="password" ngModel required name="sifra"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="red">
+        <ion-col size="6" offset="3" class="ion-text-center">
+          <ion-button  [disabled]="!f.valid" type="submit" style="width: 50vw;" color="primary">Prijavi se</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    <ion-title style="font-size: medium;">© Auto-centar "Stojanović", 2020.</ion-title>
+  </ion-toolbar>
+</ion-footer>

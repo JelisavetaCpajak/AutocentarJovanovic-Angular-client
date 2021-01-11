@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Pretraga klijenta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="padding-top: 1.5vh">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px">
+        <ion-text position="fixed"
+          >Ime i prezime klijenta ili naziv firme:
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-top: 0px">
+        <ion-item>
+          <ion-input
+            type="text"
+            class="ion-no-padding"
+            [(ngModel)]="tekstPretrage"
+          ></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button
+          color="tertiary"
+          style="margin-top: 1.5vh; margin-bottom: 2.5vh"
+          expand="full"
+          [disabled]="!tekstPretrage"
+          (click)="onPretrazi()"
+          >Pretraži</ion-button
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" style="margin-bottom: 1.8vh">
+        <ion-text>Pronađeni klijenti:</ion-text>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="pronadjeniKlijenti">
+      <ion-row *ngFor="let pronadjeniKlijent of pronadjeniKlijenti">
+        <ion-col>
+          <ion-item detail="true" (click)="prikaziPodatke(pronadjeniKlijent)">
+            {{
+              pronadjeniKlijent.ime_prezime_klijenta
+                ? pronadjeniKlijent.ime_prezime_klijenta +
+                  ", broj LK: " +
+                  pronadjeniKlijent.broj_lk
+                : pronadjeniKlijent.ime_firme +
+                  ", PIB: " +
+                  pronadjeniKlijent.pib
+            }}
+            <ion-text></ion-text>
+          </ion-item>
+        </ion-col>
+        <!-- <ion-col>
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="full"
+            [disabled]="!f.valid"
+            >Obrisi klijenta</ion-button
+          >
+        </ion-col> -->
+      </ion-row>
+    </div>
+  </ion-grid>
+</ion-content>

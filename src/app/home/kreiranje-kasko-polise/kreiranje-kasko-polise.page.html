@@ -1,0 +1,137 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Kreiranje kasko polise</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="sacuvajKaskoPolisu()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Ugovarač:</ion-text>
+            <ion-select slot="end" required ngModel placeholder="izaberite" name="ugovarac">
+              <ion-select-option [value]="'DDOR Novi Sad'">
+                DDOR Novi Sad
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Zahtev za kasko osiguranjem:</ion-text>
+            <ion-select slot="end" (ionChange)="ucitajVozila()" *ngIf="ucitaniZahteviZaKaskom" required ngModel
+              placeholder="izaberite" name="zahtevZaKasko">
+              <ion-select-option *ngFor="let zahtev of ucitaniZahteviZaKaskom" [value]="zahtev.id_zahteva">
+                {{zahtev.klijent.ime_prezime_klijenta ? zahtev.klijent.ime_prezime_klijenta+", LK: "+zahtev.klijent.broj_lk : zahtev.klijent.ime_firme+", PIB: "+zahtev.klijent.pib}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Vozilo:</ion-text>
+            <ion-select slot="end"
+              [disabled]="(form && !form.value.zahtevZaKasko) ||(ucitanaVozila && ucitanaVozila.length==0)" ngModel
+              required placeholder="izaberite" name="vozilo">
+              <ion-select-option *ngFor="let vozilo of ucitanaVozila" [value]="vozilo.broj_sasije">
+                {{vozilo.broj_sasije}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Iznos premije:</ion-text>
+            <ion-input type="number" slot="end" pattern="^[1-9][0-9]*([\.,][0-9]{2})?$" class="ion-no-padding" ngModel
+              required name="premija">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Porez:</ion-text>
+            <ion-input type="number" slot="end" pattern="^[1-9][0-9]*([\.,][0-9]{2})?$" class="ion-no-padding" ngModel
+              required name="porez">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="(form && form.value.premija && form.value.porez)">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Ukupna premija:</ion-text>
+            <ion-input (ionChange)="postaviUkupnuPremiju()" type="number" disabled=true slot="end"
+              class="ion-no-padding" [(ngModel)]="form.value.premija + form.value.porez" required
+              name="ukupnaPremija">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Početak važenja osiguranja:</ion-text>
+            <ion-datetime [min]="minDate.toISOString()" [max]="maxDate.toISOString()" display-format="DD MMM YYYY"
+              [(ngModel)]="trenutniDatum" required name="pocetakOsig" (ionChange)="promeniDatum()"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Završetak važenja osiguranja:</ion-text>
+            <ion-datetime display-format="DD MMM YYYY" disabled=true [(ngModel)]="datumZavrsetka" required
+              name="zavrsetakOsig"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="none">
+            <ion-text position="fixed" slot="start">Kasko stavke:</ion-text>
+            <ion-button style="width: 200px;" type="button" (click)="onNapraviKaskoStavku()">
+              <ion-icon name="add"></ion-icon>
+              <ion-text>Dodaj novu kasko stavku</ion-text>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="napravljeneKaskoStavke && napravljeneKaskoStavke.length > 0">
+        <ion-row *ngFor="let stavka of napravljeneKaskoStavke; let i= index">
+          <ion-col size-sm="6" offset-sm="3">
+            <ion-item lines="full">
+              <ion-text>Ugovoreno pokriće: {{stavka.ugovoreno_pokrice}}, Suma osiguranja: {{stavka.suma_osiguranja}}
+                din.</ion-text>
+              <ion-button type="button" style="--background: var(--ion-color-danger-tint);"
+                (click)="onObrisiKaskoStavku(i)" slot="end">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="full"
+            [disabled]="!(f.valid && napravljeneKaskoStavke.length>0)">
+            Sačuvaj kasko polisu</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

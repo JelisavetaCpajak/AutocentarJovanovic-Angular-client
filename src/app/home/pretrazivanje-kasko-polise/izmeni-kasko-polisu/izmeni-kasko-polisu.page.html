@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Izmena kasko polise</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="kaskoPolisaZaIzmenu">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text>Ugovarač:</ion-text>
+          <ion-input disabled=true slot="end">{{kaskoPolisaZaIzmenu.ugovarac}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Zahtev za kasko osiguranjem:</ion-text>
+          <ion-input slot="end" disabled=true>
+            {{kaskoPolisaZaIzmenu.zahtevZaKaskoOsiguranjem.klijent.ime_prezime_klijenta ? kaskoPolisaZaIzmenu.zahtevZaKaskoOsiguranjem.klijent.ime_prezime_klijenta+", LK: "+kaskoPolisaZaIzmenu.zahtevZaKaskoOsiguranjem.klijent.broj_lk : kaskoPolisaZaIzmenu.zahtevZaKaskoOsiguranjem.klijent.ime_firme+", PIB: "+kaskoPolisaZaIzmenu.zahtevZaKaskoOsiguranjem.klijent.pib}}
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Broj šasije vozila:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.vozilo.broj_sasije}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Iznos premije:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.premija}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Porez:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.porez}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Ukupna premija:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.ukupna_premija}}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Početak važenja osiguranja:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.datum_od | date:'dd-MMM-yyyy' }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Završetak važenja osiguranja:</ion-text>
+          <ion-input slot="end" disabled=true>{{kaskoPolisaZaIzmenu.datum_do | date:'dd-MMM-yyyy' }}</ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item lines="none">
+          <ion-text position="fixed" slot="start">Kasko stavke:</ion-text>
+          <ion-button style="width: 200px;" type="button" color="success" (click)="onNapraviStavku()">
+            <ion-icon name="add"></ion-icon>
+            <ion-text>Dodaj novu stavku</ion-text>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let kaskoStavka of kaskoPolisaZaIzmenu.nizStavki; let i = index">
+      <ion-col *ngIf="kaskoStavka.brisanje" size-sm="6" offset-sm="3">
+        <ion-item lines="full">
+          <ion-text><i>Kasko stavka je obrisana.</i></ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="!kaskoStavka.brisanje" size-sm="6" offset-sm="3">
+        <ion-item lines="full">
+          <ion-text>Ugovoreno pokriće: {{kaskoStavka.ugovoreno_pokrice}}, Suma osiguranja: {{kaskoStavka.suma_osiguranja}}
+            din.</ion-text>
+          <div slot="end">
+            <ion-button type="button" (click)="onIzmeniStavku(i)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button type="button" style="--background: var(--ion-color-danger-tint);" (click)="onObrisiStavku(i)">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col>
+        <ion-button type="button" color="primary" expand="full" (click)="izmeniKaskoPolisu()">Izmeni kasko polisu</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

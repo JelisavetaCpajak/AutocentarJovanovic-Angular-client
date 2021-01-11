@@ -1,0 +1,190 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Kreiranje vozila</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="onKreirajVozilo()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj šasije:</ion-text>
+            <ion-input type="text"  slot="end" ngModel required name="brojSasije" minlength=17 maxlength=17 ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj motora:</ion-text>
+            <ion-input type="text"  slot="end" ngModel required name="brojMotora"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Godina proizvodnje:</ion-text>
+            <ion-input type="number"  slot="end" ngModel required name="godinaProizvodnje"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Datum prve registracije:</ion-text>
+            <ion-datetime   [max]= "maxDate.toISOString()" display-format="DD MMM YYYY HH:mm"  ngModel required name="datumPrveReg"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+     
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Marka:</ion-text>
+            <ion-input type="text"  slot="end" ngModel required name="marka"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Model:</ion-text>
+            <ion-input type="text"  slot="end" ngModel required name="model"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Boja:</ion-text>
+            <ion-input type="text"  slot="end" ngModel required name="boja"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Masa:</ion-text>
+            <ion-input type="number"  slot="end" placeholder="kg" ngModel required name="masa" pattern="^[1-9][0-9]*$"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Najveća dozvoljena masa:</ion-text>
+            <ion-input type="number"  slot="end" ngModel required name="maxMasa" pattern="^[1-9][0-9]*$" ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Snaga motora:</ion-text>
+            <ion-input type="number"  slot="end" ngModel required name="snagaMotora"  pattern="^[1-9][0-9]*$"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Zapremina motora:</ion-text>
+            <ion-input type="number"  slot="end" ngModel required name="zapreminaMotora" pattern="^[1-9][0-9]*$"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj mesta za sedenje:</ion-text>
+            <ion-select slot="end" [ngModel]="'2'" name="brojMestaZaSedenje">
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+              <ion-select-option value="6">6</ion-select-option>
+              <ion-select-option value="7">7</ion-select-option>
+              <ion-select-option value="8">8</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj osovina:</ion-text>
+            <ion-select slot="end" [ngModel]="'2'" name="brojOsovina">
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+              <ion-select-option value="5">5</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item >
+            <ion-text position="fixed">Pogonsko gorivo:</ion-text>
+            <ion-select slot="end" [ngModel]="'EVRO DIZEL'" name="gorivo">
+              <ion-select-option value="BENZIN">Benzin</ion-select-option>
+              <ion-select-option value="EVRO DIZEL">Evro dizel</ion-select-option>
+              <ion-select-option value="TNG">TNG</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Kategorija:</ion-text>
+            <ion-select [ngModel]="'PUTNICKO VOZILO'" name="kategorija" slot="end">
+              <ion-select-option value="PUTNICKO VOZILO">Putničko vozilo</ion-select-option>
+              <ion-select-option value="TERETNO VOZILO">Teretno vozilo</ion-select-option>
+              <ion-select-option value="MOTORCIKL">Motorcikl</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="red">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="none">
+            <ion-text position="fixed">Klijent:</ion-text>
+            <div *ngIf="izabraniKlijent" slot="end">
+              <ion-text>{{izabraniKlijent.ime_prezime_klijenta ? izabraniKlijent.ime_prezime_klijenta+", broj LK: "+izabraniKlijent.broj_lk : izabraniKlijent.ime_firme+", PIB: "+izabraniKlijent.pib}}</ion-text>
+          </div>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row >
+        <ion-item lines="full">
+        <ion-col size="6" class="ion-text-center">
+          <ion-button type="button" color="tertiary" class="dugme" (click)="onPretraziKlijenta()">Pretraži klijenta</ion-button>
+        </ion-col>
+        <ion-col size="6"  class="ion-text-center">
+          <ion-button type="button" color="tertiary" class="dugme" (click)="onKreirajKlijenta()">Kreiraj novog klijenta</ion-button>
+        </ion-col>
+        </ion-item>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="full" [disabled]="!(f.valid && izabraniKlijent)">Kreiraj vozilo</ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Kreiranje predmeta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="sacuvajPredmet()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Saobraćajna dozvola:</ion-text>
+            <ion-select *ngIf="ucitaneSaobracajne" required ngModel placeholder="izaberite" name="saobracajna">
+              <ion-select-option *ngFor="let saob of ucitaneSaobracajne" [value]="saob.reg_oznaka">{{saob.reg_oznaka}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="full">
+            <ion-checkbox #ovlascenje color="primary" name="ovlascenjeCB" slot="start"></ion-checkbox>
+            <ion-label>Ovlašćenje</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="ovlascenje.checked">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Ovlašćenje:</ion-text>
+            <ion-select *ngIf="ucitanaOvlascenja" ngModel required placeholder="izaberite" name="ovlascenje">
+              <ion-select-option *ngFor="let ovl of ucitanaOvlascenja" [value]="ovl.id_ovlascenja">
+                {{ovl.ime_prezime_ovlascenog}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Registracioni list:</ion-text>
+            <ion-select *ngIf="ucitaniRegListovi" ngModel required placeholder="izaberite" name="regList">
+              <ion-select-option *ngFor="let rl of ucitaniRegListovi"  [value]="rl.id_reg_lista">
+                {{rl.vozilo.broj_sasije}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Polisa osiguranja:</ion-text>
+            <ion-select *ngIf="ucitanePolise" ngModel required placeholder="izaberite" name="polisa">
+              <ion-select-option *ngFor="let pol of ucitanePolise" [value]="pol.sifra_polise">{{pol.sifra_polise}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Registraciona nalepnica:</ion-text>
+            <ion-select *ngIf="ucitaneRegNalepnice" ngModel required placeholder="izaberite" name="regNalepnica">
+              <ion-select-option *ngFor="let rn of ucitaneRegNalepnice" [value]="rn.kontrolni_broj">
+                {{rn.kontrolni_broj}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="none">
+            <ion-text position="fixed" slot="start">Nalozi za plaćanje:</ion-text>
+            <ion-button style="width: 200px;" type="button" [disabled]="form && !form.value.regList" (click)="onNapraviNalog()">
+              <ion-icon name="add"></ion-icon>
+              <ion-text>Dodaj novi nalog</ion-text>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="napravljeniNalozi && napravljeniNalozi.length > 0">
+        <ion-row *ngFor="let nalog of napravljeniNalozi; let i= index">
+          <ion-col size-sm="6" offset-sm="3">
+            <ion-item lines="full">
+              <ion-text>Primalac: {{nalog.primalac}}, iznos: {{nalog.iznos}} din.</ion-text>
+              <ion-button type="button" style="--background: var(--ion-color-danger-tint);"
+                (click)="onObrisiNalog(i)" slot="end">
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col>
+          <ion-button type="submit" color="primary" expand="full" [disabled]="!(f.valid && napravljeniNalozi.length>0)">
+            Sačuvaj predmet</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

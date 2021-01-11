@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title" style="padding-left: 18vw;">
+      Auto-centar "Stojanović"
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid style="padding-top: 7vh">
+    <ion-row>
+      <ion-col>
+        <ion-card style="background-color:#e6f3ff;" (click)="onTehnickiPregled()">
+          <ion-card-content class="ion-no-padding">
+            <ion-grid>
+              <ion-row class="ion-no-padding">
+                <ion-col size="5">
+                  <ion-img class="slika" src="../../assets/images/trehnicki.png"></ion-img>
+                </ion-col>
+                <ion-col size="7" class=" naslov col-label ion-no-padding ion-text-center">
+                  <ion-label><strong>Tehnički pregled</strong></ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card style="background-color:#c1f0c1" (click)="onOsiguranje()">
+          <ion-card-content class="ion-no-padding">
+            <ion-grid>
+              <ion-row class="ion-no-padding">
+                <ion-col size="5">
+                  <ion-img class="slika" src="../../assets/images/osiguranje.png"></ion-img>
+                </ion-col>
+                <ion-col size="7" class="naslov col-label ion-no-padding ion-text-center">
+                  <ion-label><strong>Osiguranje</strong></ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card style="background-color: rgb(201, 247, 231);" (click)="onRegistracija()">
+          <ion-card-content class="ion-no-padding">
+            <ion-grid>
+              <ion-row class="ion-no-padding">
+                <ion-col size="5">
+                  <ion-img class="slika" src="../../assets/images/registracija.png"></ion-img>
+                </ion-col>
+                <ion-col size="7" class="col-label ion-no-padding naslov ion-text-center">
+                  <ion-label><strong>Registracija</strong></ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-text-center">
+    <ion-title style="font-size: medium;">© Auto-centar "Stojanović", 2020.</ion-title>
+  </ion-toolbar>
+</ion-footer>

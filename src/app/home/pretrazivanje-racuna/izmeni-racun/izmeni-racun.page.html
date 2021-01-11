@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Izmena računa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="racunZaIzmenu">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text>Broj tablica:</ion-text>
+          <ion-input disabled="true" slot="end"
+            >{{racunZaIzmenu.zapisnik.saobracajna.reg_oznaka}}</ion-input
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed">Datum:</ion-text>
+          <ion-input slot="end" disabled="true"
+            >{{racunZaIzmenu.datum}}</ion-input
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text position="fixed"
+            >ID zapisnika o tehnickom pregledu:</ion-text
+          >
+          <ion-input slot="end" disabled="true"
+            >{{racunZaIzmenu.zapisnik.id_broj}}</ion-input
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text>Ukupna cena bez PDV-a:</ion-text>
+          <ion-input disabled="true" slot="end"
+            >{{racunZaIzmenu.ukupno_bez_pdv}}</ion-input
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item>
+          <ion-text>Ukupna cena sa PDV-om:</ion-text>
+          <ion-input disabled="true" slot="end"
+            >{{racunZaIzmenu.ukupno_sa_pdv}}</ion-input
+          >
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-item lines="none">
+          <ion-text position="fixed" slot="start">Stavke računa:</ion-text>
+          <ion-button
+            style="width: 200px"
+            type="button"
+            color="success"
+            (click)="onNapraviStavku()"
+          >
+            <ion-icon name="add"></ion-icon>
+            <ion-text>Dodaj novu stavku</ion-text>
+          </ion-button>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let stavka of racunZaIzmenu.nizStavki; let i = index">
+      <ion-col *ngIf="stavka.brisanje" size-sm="6" offset-sm="3">
+        <ion-item lines="full">
+          <ion-text><i>Stavka je obrisana.</i></ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col *ngIf="!stavka.brisanje" size-sm="6" offset-sm="3">
+        <ion-item lines="full">
+          <ion-text
+            >{{"Naziv stavke: "+stavka.naziv+", jedinicna cena sa pdv-om:
+            "+stavka.cena_sa_pdv}}</ion-text
+          >
+
+          <div slot="end">
+            <ion-button type="button" (click)="onIzmeniStavku(i)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button
+              type="button"
+              style="--background: var(--ion-color-danger-tint)"
+              (click)="onObrisiStavku(i)"
+            >
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 1.5vh">
+      <ion-col>
+        <ion-button
+          type="button"
+          color="primary"
+          expand="full"
+          (click)="izmeniRacun()"
+          >Izmeni račun</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

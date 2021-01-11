@@ -1,0 +1,133 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Kreiranje računa</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="sacuvajRacun()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Klijent :</ion-text>
+            <ion-select
+              *ngIf="ucitaniKlijenti"
+              required
+              ngModel
+              placeholder="izaberite"
+              name="klijent"
+            >
+              <ion-select-option
+                *ngFor="let kl of ucitaniKlijenti"
+                [value]="kl.id_klijenta"
+                >{{kl.id_klijenta}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed"
+              >Zapisnik o tehnickom pregledu :</ion-text
+            >
+            <ion-select
+              *ngIf="ucitaniZapisnici"
+              ngModel
+              required
+              placeholder="izaberite"
+              name="zapisnik"
+            >
+              <ion-select-option
+                *ngFor="let zap of ucitaniZapisnici"
+                [value]="zap.id_broj"
+              >
+                {{zap.id_broj}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col
+          style="margin-left: 2vw; padding-bottom: 0px"
+          size-sm="6"
+          offset-sm="3"
+        >
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Datum:</ion-text>
+            <ion-datetime
+              display-format="DD MMM YYYY"
+              picker-format="DD MMM YYYY"
+              ngModel
+              required
+              name="datum"
+            >
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="none">
+            <ion-text position="fixed" slot="start">Stavke računa:</ion-text>
+            <ion-button
+              style="width: 200px"
+              type="button"
+              [disabled]="form && (!form.value.klijent || !form.value.zapisnik || !form.value.datum)"
+              (click)="onNapraviStavku(klijent)"
+            >
+              <ion-icon name="add"></ion-icon>
+              <ion-text>Dodaj novu stavku</ion-text>
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <div *ngIf="napravljeneStavke && napravljeneStavke.length > 0">
+        <ion-row *ngFor="let stavka of napravljeneStavke; let i= index">
+          <ion-col size-sm="6" offset-sm="3">
+            <ion-item lines="full">
+              <ion-text
+                >Stavka: {{stavka.naziv}}, cena sa PDV-om:
+                {{stavka.cena_sa_pdv}} din.</ion-text
+              >
+              <ion-button
+                type="button"
+                style="--background: var(--ion-color-danger-tint)"
+                (click)="onObrisiStavku(i)"
+                slot="end"
+              >
+                <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col>
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="full"
+            [disabled]="!(f.valid && napravljeneStavke.length>0)"
+          >
+            Sačuvaj račun</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

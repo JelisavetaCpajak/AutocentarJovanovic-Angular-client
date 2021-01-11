@@ -1,0 +1,128 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+    <ion-button (click)="onCancel()">
+      <ion-icon name="close"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+    <ion-title class="title">Prikaz vozila</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ 
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj šasije: {{vozilo.broj_sasije}}</ion-text>
+            
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj motora: {{vozilo.broj_motora}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Godina proizvodnje: {{vozilo.godina_proizvodnje}}</ion-text> </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Datum prve registracije: {{vozilo.datum_prve_registracije | date:'dd-MMM-yyyy' }}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
+     
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Marka: {{vozilo.marka}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Model: {{vozilo.model}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Boja:{{vozilo.boja}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Masa:{{vozilo.masa}}</ion-text></ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Najveća dozvoljena masa:{{vozilo.max_masa}}</ion-text> </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Snaga motora:{{vozilo.snaga_motora}}</ion-text> </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Zapremina motora:{{vozilo.zapremina_motora}}</ion-text> </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj mesta za sedenje:{{vozilo.br_mesta_za_sedenje}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Broj osovina:{{vozilo.broj_osovina}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item >
+            <ion-text position="fixed">Pogonsko gorivo:{{vozilo.pogonsko_gorivo}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-text position="fixed">Kategorija:{{vozilo.kategorija}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="red">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item lines="none">
+            <ion-text position="fixed" *ngIf="vozilo.klijent.ime_prezime_klijenta">Klijent: {{vozilo.klijent.ime_prezime_klijenta ? vozilo.klijent.ime_prezime_klijenta+", broj LK: "+vozilo.klijent.broj_lk : vozilo.klijent.ime_firme+", PIB: "+vozilo.klijent.pib}}</ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>      
+    </ion-grid>
+</ion-content>

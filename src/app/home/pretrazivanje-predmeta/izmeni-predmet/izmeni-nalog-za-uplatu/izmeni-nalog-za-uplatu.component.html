@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Izmena naloga za uplatu</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item lines="full">
+          <ion-text position="fixed" slot="start">Svrha uplate:
+          </ion-text>
+          <ion-input type="text" class="ion-no-padding" [(ngModel)]="nalogZaIzmenu.svrha_uplate"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item lines="full">
+          <ion-text position="fixed" slot="start">Primalac:
+          </ion-text>
+          <ion-input type="text" class="ion-no-padding" [(ngModel)]="nalogZaIzmenu.primalac">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item lines="full">
+          <ion-text position="fixed" slot="start">Iznos:
+          </ion-text>
+          <ion-input type="number" pattern="^[1-9][0-9]*([\.,][0-9]{2})?$" class="ion-no-padding"
+            [(ngModel)]="nalogZaIzmenu.iznos">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item lines="full">
+          <ion-text position="fixed" slot="start">Datum:</ion-text>
+          <ion-datetime display-format="DD MMM YYYY" picker-format="DD MMM YYYY" [(ngModel)]="nalogZaIzmenu.datum">
+          </ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item lines="full">
+          <ion-text position="fixed" slot="start">Račun primaoca:
+          </ion-text>
+          <ion-input type="text" class="ion-no-padding" [(ngModel)]="nalogZaIzmenu.racun_primaoca">
+
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-item>
+          <ion-text position="fixed" slot="start">Klijent:</ion-text>
+          <ion-input *ngIf="nalogZaIzmenu.klijent" type="text" class="ion-no-padding" disabled=true>
+            {{nalogZaIzmenu.klijent.ime_prezime_klijenta ? nalogZaIzmenu.klijent.ime_prezime_klijenta+", broj LK: "+nalogZaIzmenu.klijent.broj_lk : nalogZaIzmenu.klijent.ime_firme+", PIB: "+nalogZaIzmenu.klijent.pib}}
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col>
+        <ion-button type="button" color="primary" expand="full" (click)="posaljiPodatke()">Sačuvaj nalog</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

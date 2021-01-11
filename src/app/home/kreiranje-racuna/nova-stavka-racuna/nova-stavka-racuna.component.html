@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Kreiranje stavke racuna</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="posaljiPodatke()">
+    <ion-grid>
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Naziv stavke: </ion-text>
+            <ion-input
+              type="text"
+              class="ion-no-padding"
+              ngModel
+              required
+              name="nazivStavke"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Kolicina: </ion-text>
+            <ion-input
+              type="text"
+              class="ion-no-padding"
+              ngModel
+              required
+              name="kolicina"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Cena bez PDV-a: </ion-text>
+            <ion-input
+              type="number"
+              pattern="^[1-9][0-9]*([\.,][0-9]{2})?$"
+              class="ion-no-padding"
+              ngModel
+              required
+              name="cenaBezPDV"
+            >
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Cena sa PDV-om: </ion-text>
+            <ion-input
+              type="number"
+              pattern="^[1-9][0-9]*([\.,][0-9]{2})?$"
+              class="ion-no-padding"
+              ngModel
+              required
+              name="cenaSaPDV"
+            >
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col>
+          <ion-button
+            [disabled]="!f.valid"
+            type="submit"
+            color="primary"
+            expand="full"
+            >Sačuvaj stavku</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

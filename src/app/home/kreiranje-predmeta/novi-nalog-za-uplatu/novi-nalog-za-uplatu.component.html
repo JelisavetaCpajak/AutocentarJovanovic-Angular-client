@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Kreiranje naloga za uplatu</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="posaljiPodatke()">
+    <ion-grid>
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Svrha uplate:
+            </ion-text>
+            <ion-input type="text" class="ion-no-padding" ngModel required name="svrhaUplate"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Primalac:
+            </ion-text>
+            <ion-input type="text" class="ion-no-padding" ngModel required name="primalac"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Iznos:
+            </ion-text>
+            <ion-input type="number" pattern="^[1-9][0-9]*([\.,][0-9]{2})?$" class="ion-no-padding" ngModel required name="iznos">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Datum:</ion-text>
+            <ion-datetime display-format="DD MMM YYYY" picker-format="DD MMM YYYY" ngModel required name="datum">
+            </ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item lines="full">
+            <ion-text position="fixed" slot="start">Račun primaoca:
+            </ion-text>
+            <ion-input type="text" class="ion-no-padding" ngModel required name="racunPrimaoca"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="padding-top: 1.5vh;">
+        <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+          <ion-item>
+            <ion-text position="fixed" slot="start">Klijent:</ion-text>
+            <ion-input *ngIf="ucitaniKlijent" type="text" class="ion-no-padding" disabled=true>{{ucitaniKlijent.ime_prezime_klijenta ? ucitaniKlijent.ime_prezime_klijenta+", broj LK: "+ucitaniKlijent.broj_lk : ucitaniKlijent.ime_firme+", PIB: "+ucitaniKlijent.pib}}</ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+        <ion-row style="padding-top: 1.5vh;">
+          <ion-col>
+            <ion-button [disabled]="!f.valid" type="submit" color="primary" expand="full" >Sačuvaj nalog</ion-button>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">Pretraga vozila</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="padding-top: 1.5vh;">
+      <ion-col style="margin-left: 2vw; padding-bottom: 0px;">
+        <ion-text position="fixed">Ime i prezime klijenta ili ime firme:
+        </ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="padding-top: 0px;">
+        <ion-item>
+          <ion-input type="text" class="ion-no-padding" [(ngModel)]="tekstPretrage"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center">
+        <ion-button 
+        color="tertiary"
+         style="margin-top: 1.5vh; 
+         margin-bottom: 2.5vh;" 
+         expand="full"
+         [disabled]="!tekstPretrage"
+         (click)="onPretrazi()"
+         >Pretraži</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="ion-text-center" style="margin-bottom: 1.8vh;">
+          <ion-text>Pronađena vozila:</ion-text>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="pronadjenaVozila">
+    <ion-row *ngFor="let pronadjenoVozilo of pronadjenaVozila">
+      <ion-col>
+        <ion-item detail="true" (click)="prikaziVozilo(pronadjenoVozilo)">
+          <ion-text>{{"Broj šasije: "+pronadjenoVozilo.broj_sasije+", marka: "+pronadjenoVozilo.marka+", model: "+pronadjenoVozilo.model}}</ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </div>
+  </ion-grid>
+   
+</ion-content>

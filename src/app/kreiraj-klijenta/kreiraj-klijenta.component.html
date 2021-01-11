@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="title">Kreiranje klijenta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment value="fizicko" (ionChange)="onFilterUpdate($event)">
+    <ion-segment-button value="fizicko"> Fizičko lice </ion-segment-button>
+    <ion-segment-button value="pravno"> Pravno lice </ion-segment-button>
+  </ion-segment>
+
+  <form #f="ngForm" (ngSubmit)="posaljiPodatke()">
+    <ion-grid>
+      <ion-row *ngFor="let obj of labeleZaFormu">
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label
+              *ngIf="obj.labela !== 'Datum važenja LK:'"
+              position="fixed"
+              >{{ obj.labela }}</ion-label
+            >
+
+            <ion-input
+              *ngIf="
+                obj.labela !== 'Datum važenja LK:' &&
+                obj.labela !== 'JMBG:' &&
+                obj.labela !== 'Broj LK:'
+              "
+              type="text"
+              ngModel
+              required
+              name="{{ obj.nameZaInput }}"
+            >
+            </ion-input>
+            <ion-input
+              *ngIf="obj.labela === 'Broj LK:'"
+              type="text"
+              ngModel
+              minlength="8"
+              maxlength="9"
+              required
+              name="{{ obj.nameZaInput }}"
+            >
+            </ion-input>
+            <ion-input
+              *ngIf="obj.labela === 'JMBG:'"
+              type="text"
+              ngModel
+              minlength="13"
+              maxlength="13"
+              required
+              name="{{ obj.nameZaInput }}"
+            >
+            </ion-input>
+            <ion-text *ngIf="obj.labela === 'Datum važenja LK:'">{{
+              obj.labela
+            }}</ion-text>
+            <ion-datetime
+              *ngIf="obj.labela === 'Datum važenja LK:'"
+              display-format="DD MMM YYYY"
+              picker-format="DD MMM YYYY"
+              ngModel
+              required
+              name="{{ obj.nameZaInput }}"
+              [min]="minDate.toISOString()"
+              [max]="maxDate.toISOString()"
+            ></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row style="padding-top: 1.5vh">
+        <ion-col>
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="full"
+            [disabled]="!f.valid"
+            >Kreiraj klijenta</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
